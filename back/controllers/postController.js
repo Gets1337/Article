@@ -60,7 +60,7 @@ export const update = async (req, res) => {
   try {
     const postId = req.params.id;
 
-    const post = await updatePost(postId);
+    const post = await updatePost(postId, req.body, req.userId);
     res.json(post);
   } catch (err) {
     console.log(err);
