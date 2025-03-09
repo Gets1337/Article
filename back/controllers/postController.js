@@ -46,7 +46,8 @@ export const remove = async (req, res) => {
   try {
     const postId = req.params.id;
 
-    return deletePost(postId);
+    await deletePost(postId);
+    res.status(204);
   } catch (err) {
     console.log(err);
     res.status(500).json({
