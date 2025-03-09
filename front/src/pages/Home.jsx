@@ -10,7 +10,6 @@ export const Home = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth.data);
   const { posts } = useSelector((state) => state.posts);
-
   const isPostsLoading = posts.status === 'loading';
 
   React.useEffect(() => {
@@ -34,14 +33,14 @@ export const Home = () => {
               <Post key={index} isLoading={true} />
             ) : (
               <Post
-                id={obj._id}
+                id={obj.id}
                 title={obj.title}
                 imageUrl={obj.imageUrl}
                 user={obj.user}
                 createdAt={obj.createdAt}
                 viewsCount={obj.viewsCount}
                 commentsCount={3}
-                isEditable={userData._id === obj.user._id}
+                isEditable={userData?.id === obj.user.id}
               />
             )
           )}

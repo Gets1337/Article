@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { createUrl, getToken } from './base';
 import axios from 'axios';
 
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-  const { data } = await axios.get('/posts');
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async (params) => {
+  const { data } = await axios.get(createUrl('/posts', params));
   return data;
 });
 
@@ -26,7 +26,7 @@ export const fetchUploadImage = createAsyncThunk('posts/fetchUploadImage', async
 });
 
 export const fetchRemovePost = createAsyncThunk('posts/fetchRemovePost', async (id) => {
-  const { data } = await axios.delete(createUrl(`/post/${id}`), {
+  const { data } = await axios.delete(createUrl(`/posts/${id}`), {
     headers: {
       'Authorization': 'Bearer ' + getToken()
     }
