@@ -10,7 +10,7 @@ import 'easymde/dist/easymde.min.css';
 import styles from './AddPost.module.scss';
 import { SelectIsAuth } from '../../redux/slices/auth';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { fetchUploadImage, fetchCreatePost } from '../../redux/slices/posts';
+import {fetchUploadImage, fetchCreatePost, fetchUpdatePost} from '../../redux/slices/posts';
 
 export const AddPost = () => {
   const {id} = useParams();
@@ -49,11 +49,20 @@ export const AddPost = () => {
       setLoading(true);
       const fields = {
         title,
-        imageUrl, 
+        imageUrl,
         text
       };
-      const {id} = await dispatch(fetchCreatePost(fields)).unwrap();
-      navigate(`/posts/${id}`);
+
+      let postId;
+      if (id) {
+        const post = await dispatch(fetchUpdatePost(id, fields)).unwrap();
+        postId = post.id;
+      } else {
+        const post = await dispatch(fetchCreatePost(fields)).unwrap();
+        postId = post.id;
+      }
+
+      navigate(`/posts/${postId}`);
     } catch (err) {
       console.warn(err);
       alert('Ошибка при создании статьи');
@@ -118,7 +127,7 @@ React.useEffect(() => {
             Удалить
           </Button>
           <img src={`http://localhost:4444${imageUrl}`} alt="Uploaded" />
-        
+
         </>
       )}
       <br />

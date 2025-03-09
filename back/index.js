@@ -64,7 +64,7 @@ app.post(
 );
 app.delete('/posts/:id', checkAuth, postController.remove);
 app.patch(
-  '/posts',
+  '/post/:id',
   checkAuth,
   postCreateValidation,
   handleValidationErrors,
