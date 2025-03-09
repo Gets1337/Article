@@ -10,7 +10,6 @@ import {
 } from './validations.js';
 import { checkAuth, handleValidationErrors } from './utils/index.js';
 import { postController, userController } from './controllers/index.js';
-import {findAll, getAll} from "./controllers/postController.js";
 
 const app = express();
 const storage = multer.diskStorage({
