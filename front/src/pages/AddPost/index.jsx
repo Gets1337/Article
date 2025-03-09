@@ -60,18 +60,19 @@ export const AddPost = () => {
     }
   };
 
-// React.useEffect(() => {
-//   if (id) {
-//     axios.get(`http://localhost:4444/posts/${id}`)
-//   .then(({data}) => {
-//     setTitle(res.data.title);
-//     setText(res.data.text);
-//     setImageUrl(res.data.imageUrl);
-//   }).catch((err) => {
-//     console.warn(err);
-//     alert('Ошибка при загрузке статьи');
-//   });
-// }
+React.useEffect(() => {
+  if (id) {
+    axios.get(`http://localhost:4444/posts/${id}`)
+  .then(({data}) => {
+    setTitle(data.title);
+    setText(data.text);
+    setImageUrl(data.imageUrl);
+  }).catch((err) => {
+    console.warn(err);
+    alert('Ошибка при загрузке статьи');
+  });
+}
+}, [id]);
 
   const options = React.useMemo(
     () => ({

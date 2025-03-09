@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
 import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import CommentIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
-import { fetchRemovePost } from '../../redux/slices/posts';
+import { fetchRemovePost, fetchPosts } from '../../redux/slices/posts';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -33,7 +33,8 @@ export const Post = ({
 
   const onClickRemove = async () => {
     if (window.confirm('Вы действительно хотите удалить статью?')) {
-      dispatch(fetchRemovePost(id));
+      await dispatch(fetchRemovePost(id));
+      dispatch(fetchPosts());
     } 
   };
 
