@@ -5,8 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "start2": "nodemon index.js",
+    "start": "nodemon index.js",
     "migrate": "prisma migrate dev",
     "generate": "prisma generate",
     "studio": "prisma studio"

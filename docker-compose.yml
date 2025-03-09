@@ -4,6 +4,10 @@ services:
   postgres:
     container_name: postgres-db
     image: postgres:latest
+    expose:
+      - "5432"
+    networks:
+      - my-network
     environment:
       POSTGRES_PASSWORD: example
       POSTGRES_USER: user
@@ -11,7 +15,48 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - ./back/postgres-data:/var/lib/postgresql/data
+
+  frontend:
+    image: node:18-alpine
+    container_name: frontend-dev
+    working_dir: /app
+    networks:
+      - my-network
+    volumes:
+      - ./front:/app
+      - /app/node_modules  # Избегаем перезаписи node_modules
+    ports:
+      - "3000:3000"  # Порт вашего dev-сервера (React/Vue/etc)
+    environment:
+      - NODE_ENV=development
+    command: sh -c "npm install && npm run start"
+    stdin_open: true
+    tty: true
+
+  backend:
+    image: node:18-alpine
+    container_name: backend-dev
+    working_dir: /app
+    networks:
+      - my-network
+    depends_on:
+      - postgres
+    volumes:
+      - ./back:/app
+      - /app/node_modules  # Избегаем перезаписи node_modules
+    ports:
+      - "4444:4444"  # Порт вашего dev-сервера (React/Vue/etc)
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://user:example@postgres:5432/dbname?schema=public
+    command: sh -c "npm install && npm run start"
+    stdin_open: true
+    tty: true
 
 volumes:
   postgres-data:
+
+networks:
+  my-network:
+    driver: bridge
