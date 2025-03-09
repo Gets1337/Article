@@ -10,6 +10,7 @@ import {
 } from './validations.js';
 import { checkAuth, handleValidationErrors } from './utils/index.js';
 import { postController, userController } from './controllers/index.js';
+import {findAll, getAll} from "./controllers/postController.js";
 
 const app = express();
 const storage = multer.diskStorage({
@@ -45,13 +46,15 @@ app.post(
 app.get('/auth/me', checkAuth, userController.getMe);
 app.delete('/auth/logout', checkAuth, userController.logout);
 
+
+// Posts
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
   res.json({
     url: `/uploads/${req.file.originalname}`,
   });
 });
 
-// app.get('/posts', postController.getAll);
+app.get('/posts', postController.getAll);
 app.get('/posts/:id', postController.getOne);
 app.post(
   '/post',

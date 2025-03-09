@@ -14,17 +14,18 @@ export const createPost = async (postData, userId) => {
         }
       },
       include: {
-        user: true 
+        user: true
       }
     });
+
     return post;
   } catch (error) {
-    console.error('Ошибка при создании поста:', error);
+    console.error('Error in create post:', error);
     throw error;
   }
 };
 
-export const findAll = async () => {
+export const findAllPosts = async () => {
   try {
     const posts = await getPrismaClient().post.findMany({
       include: {
@@ -36,12 +37,12 @@ export const findAll = async () => {
     });
     return posts;
   } catch (error) {
-    console.error('Посты не найдены:', error);
+    console.error('Error in find all posts:', error);
     throw error;
   }
 };
 
-export const findById = async (id) => {
+export const findPostById = async (id) => {
   try {
     const post = await getPrismaClient().post.update({
       where: {
@@ -58,12 +59,12 @@ export const findById = async (id) => {
     });
     return post;
   } catch (error) {
-    console.error('Ошибка при поиске поста:', error);
+    console.error('Error in find post by id:', error);
     throw error;
   }
 };
 
-export const update = async (id, postData, userId) => {
+export const updatePost = async (id, postData, userId) => {
   try {
     const post = await getPrismaClient().post.update({
       where: {
@@ -82,7 +83,7 @@ export const update = async (id, postData, userId) => {
     });
     return post;
   } catch (error) {
-    console.error('Ошибка при обновлении поста:', error);
+    console.error('Error in update post:', error);
     throw error;
   }
 };
@@ -96,7 +97,7 @@ export const deletePost = async (id) => {
     });
     return true;
   } catch (error) {
-    console.error('Ошибка при удалении поста:', error);
+    console.error('Error in delete post:', error);
     throw error;
   }
 };
