@@ -20,7 +20,7 @@ export const createPost = async (postData, userId) => {
 
     return post;
   } catch (error) {
-    console.error('Error in create post:', error);
+    console.error('Ошибка при создании поста:', error);
     throw error;
   }
 };
@@ -37,7 +37,7 @@ export const findAllPosts = async () => {
     });
     return posts;
   } catch (error) {
-    console.error('Error in find all posts:', error);
+    console.error('Ошибка при получении всех постов:', error);
     throw error;
   }
 };
@@ -59,7 +59,7 @@ export const findPostById = async (id) => {
     });
     return post;
   } catch (error) {
-    console.error('Error in find post by id:', error);
+    console.error('Ошибка при получении поста по id:', error);
     throw error;
   }
 };
@@ -83,7 +83,7 @@ export const updatePost = async (id, postData, userId) => {
     });
     return post;
   } catch (error) {
-    console.error('Error in update post:', error);
+    console.error('Ошибка при обновлении поста:', error);
     throw error;
   }
 };
@@ -97,7 +97,7 @@ export const deletePost = async (id) => {
     });
     return true;
   } catch (error) {
-    console.error('Error in delete post:', error);
+    console.error('Ошибка при удалении поста:', error);
     throw error;
   }
 };

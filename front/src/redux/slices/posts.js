@@ -16,8 +16,9 @@ export const fetchCreatePost = createAsyncThunk('posts/fetchCreatePost', async (
   return data;
 });
 
-export const fetchUpdatePost = createAsyncThunk('posts/fetchUpdatePost', async (id, params) => {
-  const { data } = await axios.post(createUrl(`/post/${id}`), params, {
+export const fetchUpdatePost = createAsyncThunk('posts/fetchUpdatePost', async ({id, ...params}) => {
+  console.log(params);
+  const { data } = await axios.patch(createUrl(`/post/${id}`), params, {
     headers: {
       'Authorization': 'Bearer ' + getToken()
     }

@@ -55,7 +55,7 @@ export const AddPost = () => {
 
       let postId;
       if (id) {
-        const post = await dispatch(fetchUpdatePost(id, fields)).unwrap();
+        const post = await dispatch(fetchUpdatePost({id, ...fields})).unwrap();
         postId = post.id;
       } else {
         const post = await dispatch(fetchCreatePost(fields)).unwrap();
